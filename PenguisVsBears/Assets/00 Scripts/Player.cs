@@ -14,12 +14,17 @@ public class Player : MonoBehaviour
 	float jumpForce;
 	[SerializeField]
 	float groundDistance;
+	[SerializeField]
+	float attackDistance;
 	
  	[SerializeField]
  	GameObject bullet1;
 	[SerializeField]
 	LayerMask whatIsGround;
+	[SerializeField]
+	LayerMask whatIsEnemy;
 	bool grounded;
+	bool doAttack;
 	GameObject bullet;
 
 	Rigidbody2D rb;
@@ -42,7 +47,7 @@ public class Player : MonoBehaviour
 		while (true)
 		{
 			yield return null;
-			ShootingSystem();
+			AttackSystem();
 			Walk();
 		}
 	
@@ -55,17 +60,24 @@ public class Player : MonoBehaviour
 		if(ground.collider != null)
 		{
 			grounded = true;
-			Debug.Log("Is Grounded");
+			
 		} 
 		else
 		{
-			Debug.Log("NO Grounded");
+			
 			grounded = false;
 		}
-		
+		if(Input.GetAxis("Horizontal")> 0)
+		{
+			transform.localScale = new Vector3(6,6,6);
+		}
+		else if(Input.GetAxis("Horizontal") < 0)
+		{
+			transform.localScale = new Vector3(-6,6,6);
+		}
 		if(grounded)
 		{
-			if(Input.GetButtonDown("Vertical"))
+			if(Input.GetKeyDown(KeyCode.W))
 			{
 				rb.velocity = Vector2.up * jumpForce * Time.deltaTime ;
 			}
@@ -73,21 +85,43 @@ public class Player : MonoBehaviour
 		
 
 	}
-	void ShootingSystem()
+	void AttackSystem()
 	{
-		 if (Input.GetButtonDown("Fire1"))
-     	{
-         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		RaycastHit2D attackControl = Physics2D.Raycast(transform.position, Vector2.right, attackDistance, whatIsEnemy );
+		RaycastHit2D attackControl2 = Physics2D.Raycast(transform.position, -Vector2.right, attackDistance, whatIsEnemy );
+		
+		if(attackControl.collider != null || attackControl2.collider != null )
+		{
+			doAttack = true;
+			
+		}
+		else
+		{
+			doAttack = false;
+		}
+		
+		if(!doAttack)
+		{
+			if (Input.GetButtonDown("Fire1"))
+     		{
+         		Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-         Vector2 direction = (Vector2)((worldMousePos - transform.position));
-         direction.Normalize();
+        		Vector2 direction = (Vector2)((worldMousePos - transform.position));
+         		direction.Normalize();
 
-         // Creates the bullet locally
-         GameObject bullet = (GameObject)Instantiate(bullet1, transform.position + (Vector3)(direction * 0.5f),Quaternion.identity);
+        	 // Creates the bullet locally
+        		 GameObject bullet = (GameObject)Instantiate(bullet1, transform.position + (Vector3)(direction * 0.5f),Quaternion.identity);
 
-         // Adds velocity to the bullet
-         bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletVelocity;
-    	 }
+        	 // Adds velocity to the bullet
+        	 	bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletVelocity;
+    	 	}
+		}
+		
+		else
+		{
+			
+		}
+		
 
  	}
 	
