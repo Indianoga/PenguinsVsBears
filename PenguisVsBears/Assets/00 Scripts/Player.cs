@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	float bulletVelocity;
 	[SerializeField]
-	float vel;
+	float speed;
 	[SerializeField]
 	float jumpForce;
 	[SerializeField]
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 	}
 	void Walk()
 	{
-		float posX = Input.GetAxis("Horizontal") * vel * Time.deltaTime;
+		float posX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 		transform.Translate(posX,0,0);
 		RaycastHit2D ground = Physics2D.Raycast(transform.position, -Vector2.up, groundDistance, whatIsGround );
 		if(ground.collider != null)
@@ -81,6 +81,11 @@ public class Player : MonoBehaviour
 			{
 				rb.velocity = Vector2.up * jumpForce * Time.deltaTime ;
 			}
+		}
+
+		if(transform.position.y > 4.51)
+		{
+			transform.position = new Vector2(transform.position.x,4.51f); 
 		}
 		
 
