@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1054180743544240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.95, y: -2.45, z: 0}
+  m_LocalPosition: {x: -3.8, y: 1.1, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 4661063170906878}
@@ -128,14 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d376fdc7f85e38e4d87ea2e31b2152ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowBearForce: 500
+  snowBearForce: 11
   snowBullet: {fileID: 1806479158034456, guid: a70ebb4ffbceb704fb3a6a61e5c86636, type: 2}
   target: {fileID: 0}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
   enemyType:
-    enemyTypeID: 2
+    enemyTypeID: 1
 --- !u!212 &212439179257532036
 SpriteRenderer:
   m_ObjectHideFlags: 1

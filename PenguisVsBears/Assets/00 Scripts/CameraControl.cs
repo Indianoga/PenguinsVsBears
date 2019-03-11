@@ -17,11 +17,11 @@ public class CameraControl : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		newPosCam = new Vector3 (target.transform.position.x, 0, transform.position.z);
+		newPosCam = new Vector3 (target.transform.position.x, target.transform.position.y + 1.5f, transform.position.z);
 		transform.position = Vector3.Lerp (transform.position, newPosCam, camSpeed * Time.deltaTime);
-		if(transform.position.x <= 0)
+		if(transform.position.x <= 5.9)
 		{
-			transform.position = new Vector3(0, 0, transform.position.z);
+			transform.position = new Vector3(5.9f, transform.position.y, transform.position.z);
 		}
 	}
 }

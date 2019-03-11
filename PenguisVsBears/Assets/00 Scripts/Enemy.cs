@@ -14,15 +14,23 @@ public class Enemy : MonoBehaviour
 	LayerMask whatIsPlayer;
 	[SerializeField]
 	EnemyType enemyType;
+	[SerializeField]
+	GameObject gameManager;
+	EnemyCreator enemyCreator;
+	Player player;
 	Vector3 walkControl;
 	float speed;
-	bool walkCheckUp;
-	bool walkCheckDown;
+	bool functionCheck;
+	
+	
 
 	// Use this for initialization
 	void Start () 
 	{
 		target = GameObject.FindGameObjectWithTag("Player");
+		gameManager = GameObject.FindGameObjectWithTag("gameManager");
+		enemyCreator = gameManager.GetComponent<EnemyCreator>();
+		player = target.GetComponent<Player>();
 		StartCoroutine("Action");
 	}
 	
@@ -34,12 +42,29 @@ public class Enemy : MonoBehaviour
 
 	IEnumerator Action()
 	{
-		StartCoroutine ("EnemyAttackSytem");
+		if(!player.gameOver)
+		{
+			if(!functionCheck)
+			{
+				StartCoroutine ("EnemyAttackSytem");
+			}
+			
+		}
 		while (true)
 		{
 			yield return null;
-			Walk();
+			if(!player.gameOver)
+			{
+				if(!functionCheck)
+				{
+					Walk();
+				}
+				
+			}
+			
 		}
+		
+		
 	}
 	void Walk()
 	{
@@ -96,9 +121,27 @@ public class Enemy : MonoBehaviour
 			}
 		}
 		
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) 
+	{
+		if(other.gameObject.CompareTag("snowBall"))
+		{
+			Destroy(other.gameObject);
+			enemyCreator.safeSpawn--;
+			functionCheck = true;
+			StartCoroutine("DestroyObject");
+		}	
+	}
+
+	IEnumerator DestroyObject ()
+	{
+		yield return new WaitForSeconds(0.5f);
+		Destroy(gameObject);
 		
 	}
 }
+
 [System.Serializable]
 public class EnemyType 
 {
