@@ -12,18 +12,20 @@ public class EnemyCreator : MonoBehaviour
 
 	[SerializeField]
 	GameObject playerPrefab;
+
 	[SerializeField]
-	AudioClip[] musicManager;
-	[SerializeField]
-	AudioSource musicGame;
+	AudioSource[] musicGame;
 	Player player;
 
 	int levelManager;
 	int waveCountControl;
 	int enemyCount;
-	int count;
+	[HideInInspector]
+	public int count;
+	int randSpawn;
 	[HideInInspector]
 	public int safeSpawn;
+	int safeControl;
 	
 
 	// Use this for initialization
@@ -31,8 +33,7 @@ public class EnemyCreator : MonoBehaviour
 	{
 		playerPrefab = GameObject.FindGameObjectWithTag("Player");
 		player = playerPrefab.GetComponent<Player>();
-		levelManager = PlayerPrefs.GetInt("level");
-		SoundManager.instance.Play("Player",SoundManager.instance.clipList.penguinShoot,1f);
+		musicGame[0].Play();
 		
 		StartCoroutine("Action");
 		
@@ -49,14 +50,20 @@ public class EnemyCreator : MonoBehaviour
 		while (true)
 		{
 			yield return null;
+			if(Input.GetKeyDown(KeyCode.Space)) break;
+		}
+		musicGame[0].Stop();
+		musicGame[1].Play();
+
+		while (true)
+		{
+			yield return null;
 			spawners = GameObject.FindGameObjectsWithTag("spawner");
-			PlayerPrefs.SetInt("level",player.wavesSystem);
 			WaveCountControl();
 			if(player.wavesControl)
 			{
 				CreateEnemy();
 			}
-			
 		}
 	}
 
@@ -64,15 +71,65 @@ public class EnemyCreator : MonoBehaviour
 	{
 		if(player.wavesSystem == 1)
 		{
+			enemyCount = 2;
+			randSpawn = 0;
+			safeControl = 1;
+		}
+		if(player.wavesSystem == 2)
+		{
 			enemyCount = 5;
+			randSpawn = 1;
+			safeControl = 2;
+		}
+		if(player.wavesSystem == 3)
+		{
+			enemyCount = 8;
+			randSpawn = Random.Range(2,4);
+			safeControl = 5;
+		}
+		if(player.wavesSystem == 4)
+		{
+			enemyCount = 10;
+			randSpawn = Random.Range(3,5);
+			safeControl = 5;
+		}
+		if(player.wavesSystem == 5)
+		{
+			enemyCount = 10;
+			randSpawn = 5;
+			safeControl = 8;
+		}
+		if(player.wavesSystem == 6)
+		{
+			enemyCount = 15;
+			randSpawn = 7;
+			safeControl = 9;
+		}
+		if(player.wavesSystem == 7)
+		{
+			enemyCount = 25;
+			randSpawn = 6;
+			safeControl = 10;
+		}
+		if(player.wavesSystem == 8)
+		{
+			enemyCount = 30;
+			randSpawn = Random.Range(8,9);
+			safeControl = 15;
+		}
+		if(player.wavesSystem == 9)
+		{
+			enemyCount = 45;
+			randSpawn = Random.Range(9,11);
+			safeControl = 20;
 		}
 	}
 
 	public void CreateEnemy()
 	{
 		int randEnemy = Random.Range(0,enemyType.Length);
-		int randSpawn = Random.Range(0,spawners.Length);
-		if(safeSpawn < 5)
+		
+		if(safeSpawn < safeControl)
 		{
 			if(count <= enemyCount )
 			{
@@ -84,7 +141,7 @@ public class EnemyCreator : MonoBehaviour
 			
 		}
 		
-		if(count == enemyCount)
+		if(count >= enemyCount)
 		{
 			player.wavesControl = false;
 		}

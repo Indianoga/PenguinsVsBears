@@ -131,12 +131,19 @@ public class Enemy : MonoBehaviour
 			enemyCreator.safeSpawn--;
 			functionCheck = true;
 			StartCoroutine("DestroyObject");
-		}	
+		}
+		if(other.gameObject.CompareTag("attack"))
+		{
+			
+			enemyCreator.safeSpawn--;
+			functionCheck = true;
+			StartCoroutine("DestroyObject");
+		}		
 	}
 
 	IEnumerator DestroyObject ()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.2f);
 		Destroy(gameObject);
 		
 	}

@@ -39,6 +39,10 @@ public class Player : MonoBehaviour
 	Rigidbody2D rb;
   [SerializeField]
 	GameObject gameManager;
+	[SerializeField]
+	GameObject attackBx;
+	[SerializeField]
+	Animator penguin;
 	EnemyCreator enemyCreator;
 
 	// Use this for initialization
@@ -78,6 +82,7 @@ public class Player : MonoBehaviour
 	}
 	void Walk()
 	{
+	
 		float posX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 		transform.Translate(posX,0,0);
 		RaycastHit2D ground = Physics2D.Raycast(transform.position, -Vector2.up, groundDistance, whatIsGround );
@@ -94,10 +99,12 @@ public class Player : MonoBehaviour
 		if(Input.GetAxis("Horizontal")> 0)
 		{
 			transform.localScale = new Vector3(6,6,6);
+			
 		}
 		else if(Input.GetAxis("Horizontal") < 0)
 		{
 			transform.localScale = new Vector3(-6,6,6);
+
 		}
 	
 		if(grounded)
@@ -106,6 +113,15 @@ public class Player : MonoBehaviour
 			{
 				rb.velocity = Vector2.up * jumpForce * Time.deltaTime ;
 			}
+		}
+
+		if((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.S)) ) 
+		{
+			penguin.SetBool("walk",true);
+		}
+		else if ((Input.GetKeyUp(KeyCode.A)) || (Input.GetKeyUp(KeyCode.D)) || (Input.GetKeyUp(KeyCode.W)) || (Input.GetKeyUp(KeyCode.S)) )
+		{
+			penguin.SetBool("walk",false);
 		}
 	
 	}
@@ -144,12 +160,16 @@ public class Player : MonoBehaviour
 		
 		else
 		{
-			
+			if (Input.GetButtonDown("Fire1"))
+			{
+				attackBx.SetActive(true);
+			}
+			else if (Input.GetButtonUp("Fire1"))
+			{
+					attackBx.SetActive(false);
+			}
 		}
-		
-
  	}
-
 	void OnTriggerEnter2D(Collider2D other) 
 	{
 			if (other.gameObject.CompareTag("snowBear"))
@@ -161,6 +181,7 @@ public class Player : MonoBehaviour
 			if(other.gameObject.CompareTag("wave"))
 			{
 				Destroy(other.gameObject);
+				enemyCreator.count = 0;
 				wavesSystem++;
 				wavesControl = true;
 			} 
