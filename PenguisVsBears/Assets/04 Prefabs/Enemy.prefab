@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661063170906878}
   - component: {fileID: 212439179257532036}
+  - component: {fileID: 95214177861081010}
   m_Layer: 9
   m_Name: Grafic enemy
   m_TagString: Untagged
@@ -52,8 +53,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112492164836736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.000000019868, y: 0, z: 0}
+  m_LocalScale: {x: -0.1014585, y: 0.10145853, z: 0.10145853}
   m_Children: []
   m_Father: {fileID: 4963557479296860}
   m_RootOrder: 0
@@ -65,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1054180743544240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8, y: 1.1, z: 0}
+  m_LocalPosition: {x: 1.91, y: 4.67, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 4661063170906878}
@@ -117,6 +118,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13976872, y: 0.13356638}
   m_EdgeRadius: 0
+--- !u!95 &95214177861081010
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112492164836736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86c22e24a2dbe1045b263dc0848ab541, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114689097145358514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,6 +154,7 @@ MonoBehaviour:
     m_Bits: 1024
   enemyType:
     enemyTypeID: 1
+  gameManager: {fileID: 0}
 --- !u!212 &212439179257532036
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -170,8 +189,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300006, guid: 5fb5de53490ae8c4b842d5c987f0d016, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

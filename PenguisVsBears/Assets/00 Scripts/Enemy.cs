@@ -75,10 +75,12 @@ public class Enemy : MonoBehaviour
 			if(transform.position.x > target.transform.position.x)
 			{
 				walkControl = new Vector3(target.transform.position.x + 0.5f,target.transform.position.y,target.transform.position.z);
+				transform.localScale = new Vector3(-6,6,6);
 			}
 			else if (transform.position.x < target.transform.position.x)
 			{
 				walkControl = new Vector3(target.transform.position.x - 0.5f,target.transform.position.y,target.transform.position.z);
+				transform.localScale = new Vector3(6,6,6);
 			}
 		}
 		else if (enemyType.enemyTypeID == 2)
@@ -86,10 +88,12 @@ public class Enemy : MonoBehaviour
 			if(transform.position.x > target.transform.position.x)
 			{
 				walkControl = new Vector3(target.transform.position.x + 4f,target.transform.position.y,target.transform.position.z);
+				transform.localScale = new Vector3(-6,6,6);
 			}
 			else if (transform.position.x < target.transform.position.x)
 			{
 				walkControl = new Vector3(target.transform.position.x - 4f,target.transform.position.y,target.transform.position.z);
+				transform.localScale = new Vector3(6,6,6);
 			}
 		}
 		transform.position = Vector2.Lerp(transform.position,walkControl,0.05f );

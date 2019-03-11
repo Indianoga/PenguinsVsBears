@@ -25,6 +25,8 @@ public class EnemyCreator : MonoBehaviour
 	int randSpawn;
 	[HideInInspector]
 	public int safeSpawn;
+	[SerializeField]
+	GameObject startgame;
 	int safeControl;
 	
 
@@ -44,7 +46,10 @@ public class EnemyCreator : MonoBehaviour
 	{
 		
 	}
-
+	public void StartGame()
+	{
+		startgame.SetActive(false);
+	}
 	IEnumerator Action()
 	{
 		while (true)
@@ -52,6 +57,7 @@ public class EnemyCreator : MonoBehaviour
 			yield return null;
 			if(Input.GetKeyDown(KeyCode.Space)) break;
 		}
+		StartGame();
 		musicGame[0].Stop();
 		musicGame[1].Play();
 
